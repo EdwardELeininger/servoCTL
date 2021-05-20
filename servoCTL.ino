@@ -1,3 +1,9 @@
+/*!
+*  This is just a simple take on a servo tester, my goal is to slowly replace the arduino functions with
+*  AVR C, this is just one big learning tool.
+*
+*/
+
 #include <SPI.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
@@ -8,9 +14,19 @@
 #define SCREEN_ADDRESS 0x3C ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
 #define OLED_RESET     4 // Reset pin # (or -1 if sharing Arduino reset pin)
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
-uint8_t angle = 90;
-int debounce = 5;
 
+uint8_t angle = 90; /*! unsigned int storing the current angle of the servo*/
+
+int debounce = 5; /*! unsigned int. debounce value*/
+
+/*! 
+* The button, I might typedef this...
+* \param pin the pin which the button is attached to.
+* \param value the current debounce check value.
+* \param state the state of the button.
+* \param nxt_pntr pointer to the next button in the list.
+* \param function takes a function pointer to the function the button triggers.
+*/
 struct button{
   char pin;
   uint8_t value;
